@@ -1,5 +1,7 @@
 const points = [
-  ["Scotland", 56.5, -4.2], ["Northern Ireland", 54.8, -6.7], ["North West", 54.5, -2.6],
+  ["Scotland", 56.5, -4.2], ["Northern Ireland", 54.8, -6.7], ["Donegal", 55.0, -8.0],
+  ["Galway", 53.3, -9.1], ["Dublin", 53.35, -6.26], ["Waterford", 52.26, -7.11], ["Cork", 51.9, -8.47],
+  ["Limerick", 52.66, -8.63], ["North West", 54.5, -2.6],
   ["North East", 54.8, -1.5], ["Wales", 52.4, -3.7], ["West Midlands", 52.5, -1.9],
   ["East Midlands", 52.9, -.9], ["East Anglia", 52.3, .5], ["South West", 50.8, -4.2],
   ["South", 51.1, -.9], ["South East", 51.2, .8], ["Channel", 50.4, -.5]

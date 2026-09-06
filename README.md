@@ -189,7 +189,7 @@ Restart the server after changing `.env`. If frontend changes do not appear, ref
 | `index.html` | Weather dashboard layout and accessible controls |
 | `overview.html` | Separate product overview website |
 | `configure.html` | Setup and deployment documentation |
-| `pressure.html` | Interactive UK surface pressure map |
+| `pressure.html` | Interactive UK and Ireland surface pressure map |
 | `pressure.js` | Pressure map data and Leaflet markers |
 | `pressure.css` | Pressure map layout and marker styles |
 | `styles.css` | Responsive design, glassmorphism, and animations |
