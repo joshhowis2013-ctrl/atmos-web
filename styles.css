@@ -34,6 +34,8 @@ button { cursor: pointer; }
 .brand small { color: var(--accent); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; vertical-align: top; }
 .brand-mark { display: inline-grid; place-items: center; width: 30px; height: 30px; margin-right: 7px; border-radius: 10px; color: #17244e; background: var(--accent); font-size: 17px; }
 .top-actions { display: flex; gap: 10px; }
+.overview-link { align-self: center; color: var(--muted); font-size: 13px; text-decoration: none; }
+.overview-link:hover { color: var(--ink); }
 .icon-button, .mode-toggle, .location-button, .install-button { border: 1px solid var(--line); color: var(--ink); background: rgba(255,255,255,.09); border-radius: 12px; padding: 10px 14px; transition: .2s; }
 .icon-button:hover, .mode-toggle:hover, .location-button:hover { background: rgba(255,255,255,.17); transform: translateY(-1px); }
 .install-button { color: #122550; border-color: transparent; background: var(--accent); font-weight: 700; }

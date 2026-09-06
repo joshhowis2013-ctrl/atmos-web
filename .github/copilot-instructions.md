@@ -4,7 +4,7 @@
 
 Atmos Web is a dependency-light vanilla JavaScript weather PWA:
 
-- `index.html` defines the accessible UI, including simple/detail modes, search, location, install, forecast, and Met Office warning panels.
+- `index.html` is the root weather dashboard; `overview.html` is the separate product overview page. The dashboard includes simple/detail modes, search, location, install, forecast, and Met Office warning panels.
 - `styles.css` owns the responsive glassmorphism layout and weather-driven animations. Weather states are applied through `body.night`, `body.simple-mode`, `body[data-weather]`, and `.weather-scene.wet`.
 - `app.js` owns browser state and all frontend behavior. It calls Open-Meteo directly for geocoding and forecast data, then renders both dashboard modes and the optional warning result.
 - `server.js` serves the static app and exposes `/api/warnings`. It is the only place that may read the Met Office credential from environment variables.

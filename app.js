@@ -70,7 +70,12 @@ function renderWarnings(warnings, location) {
 async function loadWarnings(location) {
   if (!location.country_code && !["London", "Your location"].includes(location.name)) return;
   try {
-    const response = await fetch(`/api/warnings?latitude=${encodeURIComponent(location.latitude)}&longitude=${encodeURIComponent(location.longitude)}`);
+    const response = await fetch(`./api/warnings?latitude=${encodeURIComponent(location.latitude)}&longitude=${encodeURIComponent(location.longitude)}`);
+    if (response.status === 404) {
+      els.warningTitle.textContent = "Live warnings need the optional proxy";
+      els.warningCopy.textContent = "The static GitHub Pages site cannot run the private Met Office server. Use the official Met Office link for current warnings.";
+      return;
+    }
     const result = await response.json();
     if (result.status === "not_configured") {
       els.warningTitle.textContent = "Met Office feed needs configuring";
