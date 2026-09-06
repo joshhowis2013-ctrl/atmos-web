@@ -9,7 +9,7 @@ Atmos Web is a dependency-light vanilla JavaScript weather PWA:
 - `app.js` owns browser state and all frontend behavior. It calls Open-Meteo directly for geocoding and forecast data, then renders both dashboard modes and the optional warning result.
 - `server.js` serves the static app and exposes `/api/warnings`. It is the only place that may read the Met Office credential from environment variables.
 - `manifest.webmanifest`, `sw.js`, and `icon.svg` provide installable PWA metadata, app-shell caching, and branding.
-- `pressure.html`, `pressure.css`, and `pressure.js` provide the standalone UK pressure map using Leaflet and Open-Meteo.
+- `pressure.html`, `pressure.css`, and `pressure.js` provide the standalone UK-and-Ireland pressure map using Leaflet and Open-Meteo. It includes live points for Ireland, including Waterford.
 
 The normal production-shaped local entry point is `http://localhost:3000` through `server.js`. A Python static server is useful for frontend-only work, but it cannot provide `/api/warnings`.
 Local development is currently documented and tested on Ubuntu/Linux.
@@ -53,6 +53,8 @@ The proxy supports the configured authentication header through `MET_OFFICE_AUTH
 - When adding a weather field, request it in `fetchWeather`, render it in `render`, and update both simple and detailed views when applicable.
 - Weather-code behavior belongs in `weatherCodes`/`getWeatherInfo`; keep condition text, icon selection, and animation state derived from the same code.
 - Location searches return Open-Meteo geocoding results. Preserve latitude/longitude and country metadata because the warning panel uses country information to decide whether the Met Office link is relevant.
+- Pressure-map locations are maintained as a fixed point list in `pressure.js`; preserve the `[name, latitude, longitude]` shape when adding regional readings. The current map covers the UK and Ireland, including Donegal, Galway, Dublin, Waterford, Cork, and Limerick.
+- The pressure map requests `pressure_msl` for all points in one Open-Meteo request, classifies readings below 1005 hPa as low, above 1020 hPa as high, and the range between them as normal, then renders Leaflet markers.
 - Warning failures must remain non-blocking: forecast rendering should continue if the proxy is unavailable, unconfigured, or returns an upstream error. Keep the official Met Office link available as the fallback.
 - Preserve the relative `./` paths used by the manifest and service worker so the app works when hosted from a subpath.
 - Keep API responses and user-visible errors explicit. Do not silently treat failed warning requests as active or clear warnings.
