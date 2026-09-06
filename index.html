@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atmos Web — Beautiful weather</title>
+  <meta name="theme-color" content="#172653">
+  <meta name="description" content="Atmos Web is a beautiful, friendly weather dashboard.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="weather-scene" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="cloud cloud-one"></div>
+    <div class="cloud cloud-two"></div>
+    <div class="rain"></div>
+    <div class="stars"></div>
+  </div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Atmos Web home"><span class="brand-mark">✦</span> atmos <small>web</small></a>
+      <div class="top-actions">
+        <button class="install-button" id="install-button" type="button" hidden><span>＋</span> Install app</button>
+        <button class="icon-button" id="unit-toggle" type="button" aria-label="Switch temperature unit">°C</button>
+        <button class="mode-toggle" id="mode-toggle" type="button"><span class="mode-icon">☼</span> <span id="mode-label">Simple mode</span></button>
+      </div>
+    </header>
+
+    <section class="search-row">
+      <form class="search-box" id="search-form">
+        <span class="search-icon">⌕</span>
+        <input id="location-input" type="search" placeholder="Search a city..." autocomplete="off" aria-label="Search for a city">
+        <button type="submit"><span>Search</span><span class="button-spinner" aria-hidden="true"></span></button>
+      </form>
+      <button class="location-button" id="locate-button" type="button"><span>⌖</span> Use my location</button>
+    </section>
+
+    <div class="quick-searches" aria-label="Popular cities">
+      <span>Try:</span>
+      <button type="button" data-city="London">London</button>
+      <button type="button" data-city="New York">New York</button>
+      <button type="button" data-city="Tokyo">Tokyo</button>
+      <button type="button" data-city="Sydney">Sydney</button>
+    </div>
+    <p class="status" id="status" role="status" aria-live="polite">Loading the weather...</p>
+
+    <section class="dashboard" id="dashboard" aria-live="polite">
+      <div class="hero-card glass-card">
+        <div class="hero-heading">
+          <div>
+            <p class="eyebrow" id="date-label">Today</p>
+            <h1 id="city-name">London</h1>
+            <p class="condition" id="condition-label">Clear skies</p>
+          </div>
+          <div class="weather-icon hero-icon" id="hero-icon">☀</div>
+        </div>
+        <div class="temperature-row">
+          <span class="temperature" id="temperature">18°</span>
+          <div class="feels-like">Feels like <strong id="feels-like">18°</strong><br><span id="high-low">H 21° · L 13°</span></div>
+        </div>
+        <div class="hero-footer">
+          <span><span class="mini-icon">◒</span> Updated just now</span>
+          <span id="sunset-label">Sunset 19:42</span>
+        </div>
+      </div>
+
+      <section class="simple-summary glass-card" aria-label="Quick weather summary">
+        <div class="summary-heading">
+          <div><span class="summary-kicker">At a glance</span><h2 id="simple-advice">A comfortable day outside</h2></div>
+          <span class="summary-badge" id="simple-daylight">Daylight</span>
+        </div>
+        <div class="simple-stats">
+          <div><span class="summary-icon">🌡</span><span><small>Feels like</small><strong id="simple-feels-like">--</strong></span></div>
+          <div><span class="summary-icon">☂</span><span><small>Rain chance</small><strong id="simple-rain">--</strong></span></div>
+          <div><span class="summary-icon">≋</span><span><small>Wind</small><strong id="simple-wind">--</strong></span></div>
+          <div><span class="summary-icon">💧</span><span><small>Humidity</small><strong id="simple-humidity">--</strong></span></div>
+        </div>
+        <div class="simple-timeline"><span>Sunrise <strong id="simple-sunrise">--</strong></span><i></i><span>Sunset <strong id="simple-sunset">--</strong></span></div>
+      </section>
+
+      <section class="warning-card glass-card" id="warning-card" aria-live="polite">
+        <div class="warning-icon" id="warning-icon">✓</div>
+        <div class="warning-content">
+          <span class="summary-kicker">Met Office safety check</span>
+          <h2 id="warning-title">Check official weather warnings</h2>
+          <p id="warning-copy">For the latest UK weather warnings, use the official Met Office source.</p>
+        </div>
+        <a class="warning-link" href="https://weather.metoffice.gov.uk/warnings-and-advice/uk-warnings" target="_blank" rel="noopener noreferrer">Open Met Office <span>↗</span></a>
+      </section>
+
+      <div class="details-grid">
+        <article class="metric-card glass-card"><span class="metric-icon">💧</span><div><span>Humidity</span><strong id="humidity">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">≋</span><div><span>Wind</span><strong id="wind">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">◉</span><div><span>Visibility</span><strong id="visibility">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">◌</span><div><span>Pressure</span><strong id="pressure">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">☼</span><div><span>UV index</span><strong id="uv-index">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">☂</span><div><span>Rain chance</span><strong id="rain-chance">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">↗</span><div><span>Wind direction</span><strong id="wind-direction">--</strong></div></article>
+        <article class="metric-card glass-card"><span class="metric-icon">☀</span><div><span>Sunrise</span><strong id="sunrise-label">--</strong></div></article>
+      </div>
+
+      <section class="insight-card glass-card">
+        <div class="section-heading"><h2>Today's insight</h2><span class="muted" id="insight-location">Live conditions</span></div>
+        <div class="insight-layout">
+          <div class="comfort-score"><div class="score-ring"><strong id="comfort-score">--</strong><span>/ 100</span></div><div><strong>Comfort level</strong><p id="comfort-copy">Calculating the feel of the day...</p></div></div>
+          <div class="progress-group">
+            <div class="progress-row"><span>Humidity</span><div class="progress-track"><i id="humidity-bar"></i></div><strong id="humidity-copy">--</strong></div>
+            <div class="progress-row"><span>Rain chance</span><div class="progress-track"><i id="rain-bar"></i></div><strong id="rain-copy">--</strong></div>
+            <div class="progress-row"><span>UV exposure</span><div class="progress-track"><i id="uv-bar"></i></div><strong id="uv-copy">--</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="forecast-card glass-card">
+        <div class="section-heading"><h2>Next 7 days</h2><span class="muted">Daily forecast</span></div>
+        <div class="forecast-list" id="forecast-list"></div>
+      </section>
+
+      <section class="hourly-card glass-card">
+        <div class="section-heading"><h2>Hourly forecast</h2><span class="muted">Temperature</span></div>
+        <div class="hourly-list" id="hourly-list"></div>
+      </section>
+    </section>
+
+    <footer><span>Atmos Web · Web only</span><span>Data by Open-Meteo · No API key required</span></footer>
+  </main>
+
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+  <script src="app.js"></script>
+</body>
+</html>

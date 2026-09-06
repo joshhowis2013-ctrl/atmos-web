@@ -1,0 +1,19 @@
+{
+  "name": "Atmos Web",
+  "short_name": "Atmos",
+  "description": "A beautiful, friendly weather dashboard for the web.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101b3c",
+  "theme_color": "#172653",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
