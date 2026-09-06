@@ -77,6 +77,7 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+The separate overview page is at [http://localhost:3000/overview.html](http://localhost:3000/overview.html), and the setup guide is at [http://localhost:3000/configure.html](http://localhost:3000/configure.html).
 
 ## Configure Met Office warnings
 
@@ -122,11 +123,75 @@ python3 -m http.server 8000
 
 Open [http://localhost:8000](http://localhost:8000). Weather forecasts will work, but live Met Office warning proxy requests require the Node.js server.
 
+## Hosting options
+
+You do not need GitHub Pages to use Atmos Web.
+
+- Use `npm start` on a Linux computer or Node.js host when you want the secure Met Office warning proxy.
+- Use a static host such as GitHub Pages, Netlify, or Cloudflare Pages for the dashboard without the private warning proxy.
+- Use a custom domain with either hosting approach. The root URL opens the dashboard, while `/overview.html` opens the separate overview.
+
+This repository includes `.github/workflows/deploy-pages.yml` for optional GitHub Pages deployment. GitHub Pages hosts static files only, so `server.js` and private `.env` credentials must remain on a separate Node.js host.
+
+## Downloading and installing
+
+Choose **one** of these two options.
+
+### Option A: Clone with Git
+
+Use this option if Git is installed and you want to receive future updates with `git pull`.
+
+```bash
+sudo apt update
+sudo apt install git nodejs npm
+mkdir -p ~/Projects
+cd ~/Projects
+git clone https://github.com/joshhowis2013-ctrl/atmos-web.git
+cd atmos-web
+npm install
+```
+
+### Option B: Download as a ZIP
+
+On the GitHub repository page, select **Code → Download ZIP**, save it in `~/Downloads`, and extract it into a project directory:
+
+```bash
+sudo apt update
+sudo apt install nodejs npm unzip
+mkdir -p ~/Projects
+unzip ~/Downloads/atmos-web-main.zip -d ~/Projects
+cd ~/Projects/atmos-web-main
+npm install
+```
+
+Then follow the `.env` setup above and start the app:
+
+```bash
+cp .env.example .env
+npm start
+```
+
+## Updating a local installation
+
+```bash
+cd ~/weather-app
+git pull origin main
+npm install
+npm start
+```
+
+Restart the server after changing `.env`. If frontend changes do not appear, refresh the browser or wait for the service worker cache to update.
+
 ## Project structure
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | App layout and accessible controls |
+| `index.html` | Weather dashboard layout and accessible controls |
+| `overview.html` | Separate product overview website |
+| `configure.html` | Setup and deployment documentation |
+| `pressure.html` | Interactive UK surface pressure map |
+| `pressure.js` | Pressure map data and Leaflet markers |
+| `pressure.css` | Pressure map layout and marker styles |
 | `styles.css` | Responsive design, glassmorphism, and animations |
 | `app.js` | Weather API, UI state, search, location, and warnings |
 | `server.js` | Static server and secure Met Office proxy |

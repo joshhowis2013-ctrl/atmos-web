@@ -1,5 +1,5 @@
-const CACHE_NAME = "atmos-web-v4";
-const APP_SHELL = ["./", "./index.html", "./overview.html", "./styles.css", "./overview.css", "./app.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE_NAME = "atmos-web-v7";
+const APP_SHELL = ["./", "./index.html", "./overview.html", "./configure.html", "./pressure.html", "./styles.css", "./overview.css", "./pressure.css", "./app.js", "./pressure.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));

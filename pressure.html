@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Live UK surface pressure map for Atmos Web.">
+  <meta name="theme-color" content="#172653">
+  <title>Pressure map — Atmos Web</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="overview.css">
+  <link rel="stylesheet" href="pressure.css">
+</head>
+<body>
+  <div class="overview-scene" aria-hidden="true"><span class="orb"></span><span class="overview-cloud cloud-a"></span><span class="overview-cloud cloud-b"></span></div>
+  <header class="overview-nav">
+    <a class="overview-brand" href="index.html"><span>✦</span> atmos <em>web</em></a>
+    <nav aria-label="Pressure map navigation">
+      <a href="overview.html">Overview</a>
+      <a href="configure.html">Configure</a>
+      <a href="index.html" class="nav-cta">Dashboard <span>↗</span></a>
+    </nav>
+  </header>
+
+  <main class="pressure-shell">
+    <section class="pressure-heading">
+      <div>
+        <p class="eyebrow">Atmos Web maps</p>
+        <h1>UK pressure map</h1>
+        <p>See how surface pressure is distributed across the UK and nearby areas. Higher pressure often brings calmer conditions; lower pressure can be linked with unsettled weather.</p>
+      </div>
+      <button class="primary-button refresh-button" id="refresh-map" type="button">Refresh map <span>↻</span></button>
+    </section>
+    <div class="map-card">
+      <div id="pressure-map" aria-label="Map showing UK surface pressure readings"></div>
+      <div class="map-loading" id="map-loading">Loading pressure readings...</div>
+      <div class="map-legend"><strong>Surface pressure</strong><span><i class="low"></i> Low</span><span><i class="normal"></i> Normal</span><span><i class="high"></i> High</span><small>hPa</small></div>
+    </div>
+    <div class="pressure-summary">
+      <div class="pressure-stat glass-card"><span>Lowest reading</span><strong id="lowest-pressure">--</strong></div>
+      <div class="pressure-stat glass-card"><span>Highest reading</span><strong id="highest-pressure">--</strong></div>
+      <div class="pressure-stat glass-card"><span>Map updated</span><strong id="map-updated">--</strong></div>
+    </div>
+    <p class="map-status" id="map-status" role="status">Data provided by Open-Meteo.</p>
+  </main>
+  <footer><span>✦ atmos web</span><span><a href="index.html">Dashboard</a> · <a href="overview.html">Overview</a> · Data by Open-Meteo</span></footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="pressure.js"></script>
+</body>
+</html>
