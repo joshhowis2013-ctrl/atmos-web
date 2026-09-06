@@ -13,7 +13,6 @@
   <path d="M122 350c0-59 48-107 107-107 21 0 41 6 57 17 21-43 65-73 116-73 71 0 128 57 128 128H122Z" fill="#eef6ff" opacity=".92"/>
   <path d="M128 350h283" stroke="#1b2c62" stroke-linecap="round" stroke-width="22" opacity=".6"/>
 </svg>
-oading icon.svg…]()
 
 <img width="254" height="66" alt="image" src="https://github.com/user-attachments/assets/075daecc-57d1-4356-a58a-3767432e1d90" />
 
