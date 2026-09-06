@@ -1,3 +1,11 @@
+
+<!-- Banner -->
+<div align="center">
+  
+<img width="254" height="66" alt="image" src="https://github.com/user-attachments/assets/075daecc-57d1-4356-a58a-3767432e1d90" />
+
+</div>
+
 # Atmos Web
 
 Atmos Web is a beautiful, responsive weather dashboard that runs in the browser and can be installed as a standalone Progressive Web App (PWA).
