@@ -9,7 +9,7 @@
 
 </div>
 
-Atmos Web is a responsive weather dashboard at `/`. A separate polished overview page is available at `/overview.html`. The dashboard can also be installed as a standalone Progressive Web App (PWA).
+Atmos Web is a beautiful, responsive weather dashboard that runs in the browser and can be installed as a standalone Progressive Web App (PWA).
 
 > [!WARNING]
 > Running Atmos on Mac is not supported 
@@ -18,6 +18,8 @@ Atmos Web is a responsive weather dashboard at `/`. A separate polished overview
 > [!NOTE]
 > Atmos web might not run best on WSL on windows
 
+> [!NOTE]
+> The website (not the local domain) will not show weather warnings as its an exsample and met office api is not configerd 
 ## Features
 
 - Current weather, feels-like temperature, highs, and lows
@@ -74,7 +76,7 @@ Start the app:
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the weather dashboard. Visit [http://localhost:3000/overview.html](http://localhost:3000/overview.html) for the separate overview page.
+Open [http://localhost:3000](http://localhost:3000).
 
 ## Configure Met Office warnings
 
@@ -120,40 +122,14 @@ python3 -m http.server 8000
 
 Open [http://localhost:8000](http://localhost:8000). Weather forecasts will work, but live Met Office warning proxy requests require the Node.js server.
 
-## Deploy to GitHub Pages
-
-This repository includes `.github/workflows/deploy-pages.yml`. Push to the `main` branch, then GitHub Actions will publish the static website automatically.
-
-Enable Pages once in the repository settings:
-
-1. Open **Settings → Pages**.
-2. Under **Build and deployment**, choose **GitHub Actions**.
-3. Push to `main` or run **Deploy Atmos Web to GitHub Pages** from the **Actions** tab.
-
-The weather dashboard will be available at the repository's Pages URL:
-
-```text
-https://YOUR_USERNAME.github.io/YOUR_REPOSITORY/
-```
-
-The separate overview page is available at:
-
-```text
-https://YOUR_USERNAME.github.io/YOUR_REPOSITORY/overview.html
-```
-
-GitHub Pages hosts static files only. Open-Meteo forecasts, city search, animations, the PWA, and the official Met Office link work there. The private Met Office warning proxy in `server.js` requires a separate Node.js deployment; never add its `.env` credentials to GitHub Pages.
-
 ## Project structure
 
 | File | Purpose |
 | --- | --- |
-| `index.html` | Weather dashboard layout and accessible controls |
-| `overview.html` | Separate product overview website |
+| `index.html` | App layout and accessible controls |
 | `styles.css` | Responsive design, glassmorphism, and animations |
 | `app.js` | Weather API, UI state, search, location, and warnings |
 | `server.js` | Static server and secure Met Office proxy |
-| `.github/workflows/deploy-pages.yml` | GitHub Pages deployment |
 | `manifest.webmanifest` | Installable PWA metadata |
 | `sw.js` | Offline app-shell cache |
 | `icon.svg` | Atmos Web app icon |
