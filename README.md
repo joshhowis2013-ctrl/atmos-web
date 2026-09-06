@@ -1,7 +1,7 @@
 <img width="150" height="150" alt="icon" src="https://github.com/user-attachments/assets/f53c8262-6d49-47c2-b88d-6f741828b304" />
 <!-- Banner -->
 <div align="center">
-![Upl<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop stop-color="#5da9ff"/>
