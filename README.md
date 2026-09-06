@@ -1,7 +1,20 @@
-
+<img width="150" height="150" alt="icon" src="https://github.com/user-attachments/assets/f53c8262-6d49-47c2-b88d-6f741828b304" />
 <!-- Banner -->
 <div align="center">
-  
+![Upl<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#5da9ff"/>
+      <stop offset="1" stop-color="#9d7cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="url(#bg)"/>
+  <circle cx="345" cy="157" r="106" fill="#ffe1a2"/>
+  <path d="M122 350c0-59 48-107 107-107 21 0 41 6 57 17 21-43 65-73 116-73 71 0 128 57 128 128H122Z" fill="#eef6ff" opacity=".92"/>
+  <path d="M128 350h283" stroke="#1b2c62" stroke-linecap="round" stroke-width="22" opacity=".6"/>
+</svg>
+oading icon.svg…]()
+
 <img width="254" height="66" alt="image" src="https://github.com/user-attachments/assets/075daecc-57d1-4356-a58a-3767432e1d90" />
 
 </div>
