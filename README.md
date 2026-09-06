@@ -25,6 +25,10 @@ Atmos Web is a beautiful, responsive weather dashboard that runs in the browser 
 
 Weather data is provided by [Open-Meteo](https://open-meteo.com/). No Open-Meteo API key is required.
 
+## Platform
+
+Atmos Web is currently developed and tested on **Ubuntu/Linux**. Linux is the supported local development environment. The frontend is browser-based and the Node.js server may work on other operating systems, but those environments are not currently documented or tested.
+
 ## Run the app
 
 Atmos Web uses a small Node.js server for the static website and optional Met Office warning proxy.
@@ -42,6 +46,20 @@ Install dependencies:
 npm install
 ```
 
+Create your local environment file:
+
+```bash
+cp .env.example .env
+```
+
+The copied `.env` starts with placeholder values. Edit it only if you want live Met Office warnings; the main weather forecast works without an API key:
+
+```bash
+nano .env
+```
+
+Never commit `.env`. It is ignored by Git, while `.env.example` is the safe template committed to the repository.
+
 Start the app:
 
 ```bash
@@ -52,7 +70,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Configure Met Office warnings
 
-The warning proxy is optional. Copy the example environment file:
+The warning proxy is optional. If you have not already copied the template, run:
 
 ```bash
 cp .env.example .env
@@ -75,6 +93,12 @@ MET_OFFICE_API_KEY=Bearer your-api-key
 ```
 
 Restart the server after changing `.env`.
+
+Confirm Git is ignoring the local file:
+
+```bash
+git check-ignore -v .env
+```
 
 Never commit `.env` or put a private API key in `app.js`. The `.gitignore` file excludes `.env` and `node_modules/` from Git.
 

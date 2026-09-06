@@ -11,6 +11,7 @@ Atmos Web is a dependency-light vanilla JavaScript weather PWA:
 - `manifest.webmanifest`, `sw.js`, and `icon.svg` provide installable PWA metadata, app-shell caching, and branding.
 
 The normal production-shaped local entry point is `http://localhost:3000` through `server.js`. A Python static server is useful for frontend-only work, but it cannot provide `/api/warnings`.
+Local development is currently documented and tested on Ubuntu/Linux.
 
 ## Commands
 
@@ -40,7 +41,7 @@ python3 -m json.tool manifest.webmanifest
 
 ## Environment and secrets
 
-Copy `.env.example` to `.env` for the optional Met Office integration. Keep the real `MET_OFFICE_API_KEY` and endpoint only in `.env` or deployment secret storage. `.env` and `node_modules/` are intentionally ignored by Git.
+Copy `.env.example` to `.env` before running the Node server when configuring the optional Met Office integration. Keep the real `MET_OFFICE_API_KEY` and endpoint only in `.env` or deployment secret storage. `.env` and `node_modules/` are intentionally ignored by Git. Never replace the placeholders in `.env.example` with real credentials.
 
 The proxy supports the configured authentication header through `MET_OFFICE_AUTH_HEADER`, defaults to `X-API-Key`, and accepts either JSON or Atom/XML upstream responses. Do not move the Met Office credential into `app.js`, HTML, the service worker, or committed configuration.
 
