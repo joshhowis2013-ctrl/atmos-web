@@ -1,8 +1,9 @@
+<img width="150" height="150" alt="icon" src="https://github.com/user-attachments/assets/f53c8262-6d49-47c2-b88d-6f741828b304" />
 <!-- Banner -->
 <div align="center">
-
 <img width="254" height="66" alt="image" src="https://github.com/user-attachments/assets/075daecc-57d1-4356-a58a-3767432e1d90" />
 
+</div>
 
 # Atmos Web
 
