@@ -11,9 +11,9 @@
 
 Atmos Web is a beautiful, responsive weather dashboard that runs in the browser and can be installed as a standalone Progressive Web App (PWA).
 
-> [!NOTE]
-> Whister is currently in beta, so unexpected issues may occur.
-> Please report them if they haven't already been reported.
+> [!WARNING]
+> Running Atmos on Mac is not supported 
+
 
 > [!NOTE]
 > Atmos web might not run best on WSL on windows
