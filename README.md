@@ -77,7 +77,30 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
-The separate overview page is at [http://localhost:3000/overview.html](http://localhost:3000/overview.html), and the setup guide is at [http://localhost:3000/configure.html](http://localhost:3000/configure.html).
+The separate overview page is at [http://localhost:3000/overview.html](http://localhost:3000/overview.html), and the documentation home is at [http://localhost:3000/configure.html](http://localhost:3000/configure.html). Use its menu to open the getting started, configuration, deployment, and troubleshooting pages.
+
+## GitHub Pages example
+
+GitHub Pages publishes a separate static example build through `.github/workflows/deploy-pages.yml`. The workflow copies only browser-safe frontend files into a temporary `_site` directory; it does not publish `server.js`, `.env`, `package.json`, or private credentials.
+
+The public example keeps Open-Meteo forecasts, the pressure map, PWA installation, and the official Met Office warning fallback. Live Met Office warnings are intentionally unavailable because GitHub Pages cannot run the private `/api/warnings` server proxy. The local `npm start` application remains unchanged and can use the configured warning API.
+
+### One-command setup
+
+On Ubuntu/Linux, `setup.sh` installs the npm dependencies and creates `.env` from `.env.example` without overwriting an existing `.env`:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+npm start
+```
+
+The script expects Node.js and npm to be installed. If they are missing, install them with:
+
+```bash
+sudo apt update
+sudo apt install nodejs npm
+```
 
 ## Configure Met Office warnings
 
@@ -148,7 +171,7 @@ mkdir -p ~/Projects
 cd ~/Projects
 git clone https://github.com/joshhowis2013-ctrl/atmos-web.git
 cd atmos-web
-npm install
+./setup.sh
 ```
 
 ### Option B: Download as a ZIP
@@ -161,7 +184,8 @@ sudo apt install nodejs npm unzip
 mkdir -p ~/Projects
 unzip ~/Downloads/atmos-web-main.zip -d ~/Projects
 cd ~/Projects/atmos-web-main
-npm install
+chmod +x setup.sh
+./setup.sh
 ```
 
 Then follow the `.env` setup above and start the app:
@@ -189,12 +213,18 @@ Restart the server after changing `.env`. If frontend changes do not appear, ref
 | `index.html` | Weather dashboard layout and accessible controls |
 | `overview.html` | Separate product overview website |
 | `configure.html` | Setup and deployment documentation |
+| `docs/getting-started.html` | Installation and first-run guide |
+| `docs/configuration.html` | Environment and Met Office configuration |
+| `docs/deployment.html` | Node.js and static hosting options |
+| `docs/troubleshooting.html` | Common setup and runtime issues |
 | `pressure.html` | Interactive UK and Ireland surface pressure map |
 | `pressure.js` | Pressure map data and Leaflet markers |
 | `pressure.css` | Pressure map layout and marker styles |
 | `styles.css` | Responsive design, glassmorphism, and animations |
 | `app.js` | Weather API, UI state, search, location, and warnings |
 | `server.js` | Static server and secure Met Office proxy |
+| `setup.sh` | Installs dependencies and creates the local `.env` template |
+| `example/README.md` | Documents the separate static GitHub Pages example |
 | `manifest.webmanifest` | Installable PWA metadata |
 | `sw.js` | Offline app-shell cache |
 | `icon.svg` | Atmos Web app icon |

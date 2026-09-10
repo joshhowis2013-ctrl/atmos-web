@@ -20,6 +20,10 @@
     pre { overflow-x: auto; margin: 15px 0 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; color: #dcecff; background: rgba(4,10,29,.55); line-height: 1.6; }
     .docs-note { padding: 14px 16px; border-left: 3px solid var(--accent); border-radius: 8px; color: var(--muted); background: rgba(142,216,255,.08); }
     .docs-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 25px; }
+    .docs-menu { position: sticky; top: 12px; z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 28px; padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: rgba(8, 17, 40, .88); backdrop-filter: blur(14px); }
+    .docs-menu a { padding: 9px 12px; border-radius: 9px; color: var(--muted); text-decoration: none; }
+    .docs-menu a:hover, .docs-menu a:focus-visible { color: var(--text); background: rgba(142,216,255,.1); }
+    .docs-menu .primary-button { color: #07101f; }
     @media (max-width: 600px) { .docs-shell { margin-top: 25px; } .docs-card { padding: 21px 18px; } }
   </style>
 </head>
@@ -42,131 +46,23 @@
       <div class="docs-links"><a class="primary-button" href="index.html">Open dashboard <span>→</span></a><a class="text-link" href="pressure.html">Open pressure map</a></div>
     </section>
 
+    <nav class="docs-menu" aria-label="Documentation sections">
+      <a class="primary-button" href="configure.html">Documentation home</a>
+      <a href="docs/getting-started.html">Getting started</a>
+      <a href="docs/configuration.html">Configuration</a>
+      <a href="docs/deployment.html">Deployment</a>
+      <a href="docs/troubleshooting.html">Troubleshooting</a>
+    </nav>
+
     <section class="docs-card">
-      <h2>1. Run locally on Ubuntu/Linux</h2>
-      <p>Atmos Web is developed and tested on Ubuntu/Linux. Node.js is required for the full server and optional warning proxy.</p>
-      <pre><code>sudo apt update
-sudo apt install nodejs npm
-cd ~/weather-app
-npm install
+      <h2>Atmos Web documentation</h2>
+      <p>Choose a section from the menu to find the setup, configuration, deployment, and troubleshooting instructions you need.</p>
+      <h3>Quick start</h3>
+      <pre><code>chmod +x setup.sh
+./setup.sh
 npm start</code></pre>
-      <p>Open <code>http://localhost:3000</code>. The dashboard is at the root, and this documentation page is available at <code>/configure.html</code>.</p>
+      <p>Then open <code>http://localhost:3000</code>. The setup script installs dependencies and creates <code>.env</code> without overwriting an existing environment file.</p>
     </section>
-
-    <section class="docs-card">
-      <h2>2. Download and install</h2>
-      <p>Choose <strong>one</strong> of the two download options below. Do not run both.</p>
-      <h3>Option A: Clone with Git</h3>
-      <p>Use this option if Git is installed and you want to receive future updates with <code>git pull</code>.</p>
-      <pre><code>sudo apt update
-sudo apt install git nodejs npm
-mkdir -p ~/Projects
-cd ~/Projects
-git clone https://github.com/joshhowis2013-ctrl/atmos-web.git
-cd atmos-web
-npm install</code></pre>
-      <h3>Option B: Download a ZIP</h3>
-      <ol>
-        <li>Open the repository on GitHub.</li>
-        <li>Select <strong>Code → Download ZIP</strong>.</li>
-        <li>Save the ZIP in your Downloads folder and extract it.</li>
-        <li>Open a terminal and move into the extracted project folder.</li>
-      </ol>
-      <pre><code>sudo apt update
-sudo apt install nodejs npm
-mkdir -p ~/Projects
-unzip ~/Downloads/atmos-web-main.zip -d ~/Projects
-cd ~/Projects/atmos-web-main
-npm install</code></pre>
-      <div class="docs-note">If you downloaded a ZIP, run <code>npm install</code> again whenever the dependencies in <code>package.json</code> change.</div>
-    </section>
-
-    <section class="docs-card">
-      <h2>3. Configure the environment file</h2>
-      <p>Copy the safe template. The real file is ignored by Git and must never be committed.</p>
-      <pre><code>cp .env.example .env
-nano .env</code></pre>
-      <p>The normal weather forecast works without an API key. Only add Met Office settings if you have enabled the warnings product.</p>
-      <pre><code>PORT=3000
-MET_OFFICE_WARNINGS_URL=https://your-warnings-endpoint
-MET_OFFICE_API_KEY=your-rotated-api-key
-MET_OFFICE_AUTH_HEADER=X-API-Key</code></pre>
-      <div class="docs-note">Never put a private API key in <code>app.js</code>, HTML, or GitHub Pages. If a key is exposed, rotate it immediately.</div>
-    </section>
-
-    <section class="docs-card">
-      <h2>4. Enable Met Office warnings</h2>
-      <ol>
-        <li>Create an account at the <a href="https://datahub.metoffice.gov.uk/" target="_blank" rel="noopener noreferrer">Met Office Weather DataHub</a>.</li>
-        <li>Open the warnings or NSWWS product documentation and copy its exact endpoint.</li>
-        <li>Set the endpoint, credential, and required authentication header in <code>.env</code>.</li>
-        <li>Restart Atmos Web with <code>npm start</code>.</li>
-      </ol>
-      <p>The dashboard keeps working if the warning proxy is unavailable. It will show the official Met Office link instead.</p>
-    </section>
-
-    <section class="docs-card">
-      <h2>5. Choose where to host</h2>
-      <p>You do not need GitHub Pages to use Atmos Web. Choose the option that matches how you want to run it.</p>
-      <h3>Run it locally</h3>
-      <pre><code>cd ~/weather-app
-npm start</code></pre>
-      <p>Use <code>http://localhost:3000</code> for your own computer or local network.</p>
-      <h3>Use a Node.js host</h3>
-      <p>Choose a host that supports Node.js if you want the secure Met Office warning proxy. Set the start command to <code>npm start</code> and add the values from <code>.env</code> as encrypted environment variables in the host dashboard.</p>
-      <h3>Use static hosting</h3>
-      <p>GitHub Pages, Netlify, Cloudflare Pages, and similar static hosts can serve the forecast website without the Node proxy. Search, animations, the PWA, and Open-Meteo weather work there; live private Met Office proxy requests need a separate Node service.</p>
-    </section>
-
-    <section class="docs-card">
-      <h2>6. Optional GitHub Pages deployment</h2>
-      <ol>
-        <li>Push the repository to GitHub.</li>
-        <li>Open <strong>Settings → Pages</strong>.</li>
-        <li>Choose <strong>GitHub Actions</strong> as the deployment source.</li>
-        <li>Push to <code>main</code> or run <strong>Deploy Atmos Web to GitHub Pages</strong> in the Actions tab.</li>
-      </ol>
-      <p>This is optional. The repository already includes a deployment workflow, but GitHub Pages cannot run <code>server.js</code> or store private Met Office credentials.</p>
-    </section>
-
-    <section class="docs-card">
-      <h2>7. Connect a custom domain (Optional)</h2>
-      <p>Configure the domain at the hosting provider you choose. Point the domain to that provider, enable HTTPS, and make sure the host serves <code>index.html</code> at the root.</p>
-      <pre><code>https://your-domain.com/              dashboard
-https://your-domain.com/overview.html overview
-https://your-domain.com/configure.html documentation</code></pre>
-      <p>For GitHub Pages specifically, use <strong>Settings → Pages → Custom domain</strong> and add the DNS records GitHub provides.</p>
-    </section>
-
-    <section class="docs-card">
-      <h2>8. Update Atmos Web safely</h2>
-      <pre><code>cd ~/weather-app
-git pull origin main
-npm install
-npm start</code></pre>
-      <p>After changing <code>.env</code>, restart the server. After changing a cached frontend file, the service worker updates its cache version in <code>sw.js</code>.</p>
-    </section>
-
-    <section class="docs-card">
-      <h2>9. Troubleshooting</h2>
-      <ul>
-        <li><strong>Port already in use:</strong> stop the existing server or run <code>PORT=3001 npm start</code>.</li>
-        <li><strong>Warnings unavailable:</strong> confirm the endpoint, authentication header, and rotated API key in <code>.env</code>.</li>
-        <li><strong>Pages shows a 404:</strong> enable GitHub Pages with <strong>GitHub Actions</strong> as the source, then rerun the workflow.</li>
-        <li><strong>Changes do not appear:</strong> refresh the page, clear the site cache, or wait for the service worker to update.</li>
-        <li><strong>Location does not work:</strong> allow browser location access or search for a city instead.</li>
-      </ul>
-    </section>
-
-    <section class="docs-card">
-      <h2>10. Keep credentials private</h2>
-      <p>Check before every push:</p>
-      <pre><code>git status
-git check-ignore -v .env
-git grep -n "MET_OFFICE_API_KEY" -- ':!.env.example'</code></pre>
-      <p>The real key should only exist in local environment variables or your hosting provider's secret manager.</p>
-    </section>
-     <h1>Step 10.. Check The Sky!</h1>
   </main>
   <footer><span>✦ atmos web</span><span>Configuration guide · Built for the web</span></footer>
 </body>

@@ -4,14 +4,15 @@
 
 Atmos Web is a dependency-light vanilla JavaScript weather PWA:
 
-- `index.html` is the root weather dashboard; `overview.html` is the separate product overview page; `configure.html` is the setup and deployment guide. The dashboard includes simple/detail modes, search, location, install, forecast, and Met Office warning panels.
+- `index.html` is the root weather dashboard; `overview.html` is the separate product overview page; `configure.html` is the documentation home, with additional guides under `docs/`. The dashboard includes simple/detail modes, search, location, install, forecast, and Met Office warning panels.
 - `styles.css` owns the responsive glassmorphism layout and weather-driven animations. Weather states are applied through `body.night`, `body.simple-mode`, `body[data-weather]`, and `.weather-scene.wet`.
 - `app.js` owns browser state and all frontend behavior. It calls Open-Meteo directly for geocoding and forecast data, then renders both dashboard modes and the optional warning result.
 - `server.js` serves the static app and exposes `/api/warnings`. It is the only place that may read the Met Office credential from environment variables.
 - `manifest.webmanifest`, `sw.js`, and `icon.svg` provide installable PWA metadata, app-shell caching, and branding.
+- `.github/workflows/deploy-pages.yml` builds a separate browser-only `_site` artifact for GitHub Pages; keep server files, `.env`, and credentials out of that artifact.
 - `pressure.html`, `pressure.css`, and `pressure.js` provide the standalone UK-and-Ireland pressure map using Leaflet and Open-Meteo. It includes live points for Ireland, including Waterford.
 
-The normal production-shaped local entry point is `http://localhost:3000` through `server.js`. A Python static server is useful for frontend-only work, but it cannot provide `/api/warnings`.
+The normal production-shaped local entry point is `http://localhost:3000` through `server.js`. A Python static server is useful for frontend-only work, but it cannot provide `/api/warnings`. GitHub Pages uses the workflow-generated static example and intentionally relies on the official warning fallback.
 Local development is currently documented and tested on Ubuntu/Linux.
 
 ## Commands
@@ -21,6 +22,15 @@ Install dependencies:
 ```bash
 npm install
 ```
+
+One-command Ubuntu/Linux setup:
+
+```bash
+chmod +x setup.sh
+./setup.sh
+```
+
+The script installs npm dependencies and creates `.env` from `.env.example` only when `.env` does not already exist. It requires Node.js and npm but does not install system packages automatically.
 
 Run the app and proxy:
 

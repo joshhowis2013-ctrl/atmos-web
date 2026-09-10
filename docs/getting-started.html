@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting started · Atmos Web</title>
+  <link rel="stylesheet" href="../overview.css">
+  <style>
+    .docs-shell { width: min(850px, calc(100% - 28px)); margin: 45px auto 80px; }
+    .docs-card { margin: 18px 0; padding: 27px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+    .docs-card h1, .docs-card h2 { margin-top: 0; font-family: "Space Grotesk", Arial, sans-serif; }
+    .docs-card p, .docs-card li { color: var(--muted); line-height: 1.6; }
+    .docs-menu { position: sticky; top: 12px; z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 28px; padding: 12px; border: 1px solid var(--line); border-radius: 16px; background: rgba(8,17,40,.88); backdrop-filter: blur(14px); }
+    .docs-menu a { padding: 9px 12px; border-radius: 9px; color: var(--muted); text-decoration: none; }
+    .docs-menu a:hover, .docs-menu a:focus-visible, .docs-menu .active { color: var(--text); background: rgba(142,216,255,.1); }
+    pre { overflow-x: auto; padding: 16px; border-radius: 12px; color: #dcecff; background: rgba(4,10,29,.55); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header class="overview-nav"><a class="overview-brand" href="../index.html"><span>✦</span> atmos <em>web</em></a><nav><a href="../overview.html">Overview</a><a href="../index.html" class="nav-cta">Open dashboard <span>↗</span></a></nav></header>
+  <main class="docs-shell">
+    <nav class="docs-menu" aria-label="Documentation sections"><a href="../configure.html">Documentation home</a><a class="active" href="getting-started.html">Getting started</a><a href="configuration.html">Configuration</a><a href="deployment.html">Deployment</a><a href="troubleshooting.html">Troubleshooting</a></nav>
+    <section class="docs-card"><h1>Getting started</h1><p>Atmos Web is developed and tested on Ubuntu/Linux. Node.js and npm are required for the full server.</p><pre>sudo apt update
+sudo apt install nodejs npm
+chmod +x setup.sh
+./setup.sh
+npm start</pre><p>Open <code>http://localhost:3000</code>. The script preserves an existing <code>.env</code> file.</p></section>
+    <section class="docs-card"><h2>Download the project</h2><p>Clone the repository with Git, or download and extract a ZIP from GitHub. After entering the project directory, run <code>./setup.sh</code>.</p><pre>git clone https://github.com/joshhowis2013-ctrl/atmos-web.git
+cd atmos-web
+./setup.sh</pre></section>
+  </main>
+</body>
+</html>
