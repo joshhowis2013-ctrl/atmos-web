@@ -51,6 +51,7 @@
       <a href="docs/getting-started.html">Getting started</a>
       <a href="docs/configuration.html">Configuration</a>
       <a href="docs/deployment.html">Deployment</a>
+      <a href="docs/updating.html">Updating</a>
       <a href="docs/troubleshooting.html">Troubleshooting</a>
     </nav>
 
@@ -62,6 +63,16 @@
 ./setup.sh
 npm start</code></pre>
       <p>Then open <code>http://localhost:3000</code>. The setup script installs dependencies and creates <code>.env</code> without overwriting an existing environment file.</p>
+    </section>
+
+    <section class="docs-card">
+      <h2>Update an existing installation</h2>
+      <p>For a Git installation, run this from the project folder whenever a new version is released:</p>
+      <pre><code>git pull origin main
+./setup.sh
+npm start</code></pre>
+      <p>The setup script updates dependencies and preserves your existing <code>.env</code>. ZIP installations should download the latest archive and follow the same setup steps in the new folder.</p>
+      <p><a class="text-link" href="docs/deployment.html">Read the full update and deployment guide →</a></p>
     </section>
   </main>
   <footer><span>✦ atmos web</span><span>Configuration guide · Built for the web</span></footer>

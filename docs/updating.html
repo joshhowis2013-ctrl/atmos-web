@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Updating · Atmos Web</title><link rel="stylesheet" href="../overview.css"><style>
+.docs-shell{width:min(850px,calc(100% - 28px));margin:45px auto 80px}.docs-card{margin:18px 0;padding:27px;border:1px solid var(--line);border-radius:20px;background:var(--panel)}.docs-card h1,.docs-card h2{margin-top:0;font-family:"Space Grotesk",Arial,sans-serif}.docs-card p,.docs-card li{color:var(--muted);line-height:1.6}.docs-menu{position:sticky;top:12px;z-index:2;display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 28px;padding:12px;border:1px solid var(--line);border-radius:16px;background:rgba(8,17,40,.88);backdrop-filter:blur(14px)}.docs-menu a{padding:9px 12px;border-radius:9px;color:var(--muted);text-decoration:none}.docs-menu a:hover,.docs-menu a:focus-visible,.docs-menu .active{color:var(--text);background:rgba(142,216,255,.1)}pre{overflow-x:auto;padding:16px;border-radius:12px;color:#dcecff;background:rgba(4,10,29,.55);line-height:1.6}
+</style></head>
+<body><header class="overview-nav"><a class="overview-brand" href="../index.html"><span>✦</span> atmos <em>web</em></a><nav><a href="../overview.html">Overview</a><a href="../index.html" class="nav-cta">Open dashboard <span>↗</span></a></nav></header><main class="docs-shell">
+<nav class="docs-menu" aria-label="Documentation sections"><a href="../configure.html">Documentation home</a><a href="getting-started.html">Getting started</a><a href="configuration.html">Configuration</a><a href="deployment.html">Deployment</a><a class="active" href="updating.html">Updating</a><a href="troubleshooting.html">Troubleshooting</a></nav>
+<section class="docs-card"><h1>Updating Atmos Web</h1><p>Update regularly to receive the latest features, fixes, and documentation. Your local environment file is preserved by the setup script.</p></section>
+<section class="docs-card"><h2>Git installation</h2><p>Run these commands from your Atmos Web project folder:</p><pre>cd ~/weather-app
+git pull origin main
+./setup.sh
+npm start</pre><p><code>./setup.sh</code> updates npm dependencies and never overwrites an existing <code>.env</code>. Stop the current server before starting the updated version.</p></section>
+<section class="docs-card"><h2>ZIP installation</h2><ol><li>Download the latest ZIP from GitHub.</li><li>Extract it into a new project folder.</li><li>Copy your existing <code>.env</code> into the new folder.</li><li>Run <code>chmod +x setup.sh</code>, then <code>./setup.sh</code>.</li><li>Start the updated app with <code>npm start</code>.</li></ol><p>Keep the old folder until the new installation works, then remove it manually if you no longer need it.</p></section>
+<section class="docs-card"><h2>After updating</h2><p>Open <code>http://localhost:3000</code> and refresh the browser. If an older frontend is still visible, wait for the service worker cache to update or clear the site cache.</p></section>
+</main></body></html>

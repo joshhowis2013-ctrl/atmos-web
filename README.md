@@ -195,16 +195,35 @@ cp .env.example .env
 npm start
 ```
 
-## Updating a local installation
+## Updating Atmos Web
+
+### Git clone
+
+If you installed Atmos Web with Git, run these commands from the project folder:
 
 ```bash
 cd ~/weather-app
 git pull origin main
-npm install
+./setup.sh
 npm start
 ```
 
-Restart the server after changing `.env`. If frontend changes do not appear, refresh the browser or wait for the service worker cache to update.
+`./setup.sh` updates dependencies and preserves your existing `.env`. Stop the old server before starting the updated one.
+
+### ZIP download
+
+If you installed from a ZIP file, download the latest ZIP, extract it into a new folder, and run:
+
+```bash
+cd ~/Projects/atmos-web-main
+chmod +x setup.sh
+./setup.sh
+npm start
+```
+
+Copy your old `.env` into the new folder before running `npm start` if you use Met Office warnings. Never copy credentials into frontend files.
+
+If frontend changes do not appear, refresh the browser or wait for the service worker cache to update.
 
 ## Project structure
 
@@ -216,8 +235,9 @@ Restart the server after changing `.env`. If frontend changes do not appear, ref
 | `docs/getting-started.html` | Installation and first-run guide |
 | `docs/configuration.html` | Environment and Met Office configuration |
 | `docs/deployment.html` | Node.js and static hosting options |
+| `docs/updating.html` | Git and ZIP update instructions |
 | `docs/troubleshooting.html` | Common setup and runtime issues |
-| `pressure.html` | Interactive UK and Ireland surface pressure map |
+| `pressure.html` | Interactive UK, Ireland, and France surface pressure map |
 | `pressure.js` | Pressure map data and Leaflet markers |
 | `pressure.css` | Pressure map layout and marker styles |
 | `styles.css` | Responsive design, glassmorphism, and animations |

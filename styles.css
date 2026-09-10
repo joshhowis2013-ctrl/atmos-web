@@ -53,9 +53,17 @@ button { cursor: pointer; }
 .is-loading .search-box button span:first-child { opacity: .65; }
 .is-loading .button-spinner { display: inline-block; animation: spin .7s linear infinite; }
 .location-button { white-space: nowrap; }
+.location-suggestions { position: relative; z-index: 3; display: grid; width: min(100%, 680px); margin: -2px 0 8px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: rgba(12, 24, 55, .96); box-shadow: var(--shadow); }
+.location-suggestion { display: grid; gap: 3px; border: 0; border-bottom: 1px solid rgba(255,255,255,.08); padding: 11px 15px; color: var(--ink); text-align: left; background: transparent; }
+.location-suggestion:last-child { border-bottom: 0; }
+.location-suggestion:hover, .location-suggestion:focus-visible { background: rgba(142,216,255,.12); outline: 0; }
+.location-suggestion span { color: var(--muted); font-size: 12px; }
 .quick-searches { display: flex; align-items: center; gap: 8px; margin: 0 0 5px; color: var(--muted); font-size: 12px; }
 .quick-searches button { border: 0; border-radius: 20px; padding: 5px 10px; color: var(--muted); background: rgba(255,255,255,.07); transition: .2s; }
 .quick-searches button:hover, .quick-searches button:focus-visible { color: var(--ink); background: rgba(142,216,255,.18); outline: 0; transform: translateY(-2px); }
+.saved-locations { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 8px 0 5px; color: var(--muted); font-size: 12px; }
+.saved-locations button { border: 1px solid rgba(142,216,255,.2); border-radius: 20px; padding: 5px 10px; color: var(--accent); background: rgba(142,216,255,.08); }
+.saved-locations button:hover, .saved-locations button:focus-visible { background: rgba(142,216,255,.18); }
 .status { min-height: 22px; margin: 0 0 14px; color: var(--muted); font-size: 13px; }
 .dashboard { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; }
 .glass-card { border: 1px solid var(--line); background: var(--card); box-shadow: var(--shadow); backdrop-filter: blur(20px); }
@@ -65,6 +73,11 @@ button { cursor: pointer; }
 .eyebrow { margin: 0 0 8px; font-size: 14px; }
 h1, h2, p { margin-top: 0; }
 h1 { margin-bottom: 7px; font: 700 clamp(32px, 5vw, 52px) "Space Grotesk", sans-serif; letter-spacing: -.07em; }
+.city-title { display: flex; align-items: center; gap: 12px; }
+.city-title h1 { margin-bottom: 0; }
+.location-detail { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.save-location-button { border: 0; padding: 2px 5px; color: #ffd36e; background: transparent; font-size: 28px; line-height: 1; }
+.save-location-button:hover, .save-location-button:focus-visible { color: #fff0a8; transform: scale(1.1); }
 .condition { margin-bottom: 0; font-size: 16px; }
 .weather-icon { color: #ffd98a; text-shadow: 0 0 25px rgba(255, 217, 138, .5); }
 .hero-icon { font-size: 86px; line-height: 1; margin-right: 13px; animation: float 5s ease-in-out infinite; }
@@ -126,6 +139,7 @@ h2 { margin-bottom: 0; font: 600 20px "Space Grotesk", sans-serif; letter-spacin
 .forecast-day strong { color: var(--ink); }
 .forecast-day .weather-icon { font-size: 25px; }
 .range { font-size: 13px; }
+.forecast-rain { color: var(--accent); font-size: 11px; }
 .range span { color: var(--muted); margin-left: 5px; }
 .hourly-list { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 3px; }
 .hour { min-width: 86px; display: grid; justify-items: center; gap: 12px; padding: 15px 8px; border-radius: 15px; color: var(--muted); }
@@ -143,6 +157,8 @@ h2 { margin-bottom: 0; font: 600 20px "Space Grotesk", sans-serif; letter-spacin
 body[data-weather*="snow"] .weather-scene::before { background: radial-gradient(circle, rgba(255,255,255,.8) 0 2px, transparent 3px); background-size: 65px 65px; animation: snow-fall 7s linear infinite; }
 body[data-weather*="thunder"] .weather-scene { animation: storm-flash 8s infinite; }
 footer { margin-top: 25px; color: rgba(220,230,255,.58); font-size: 12px; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(142,216,255,.75); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 body.simple-mode .details-grid, body.simple-mode .hourly-card, body.simple-mode .forecast-card, body.simple-mode .insight-card { display: none; }
 body.simple-mode .simple-summary { display: block; }
 body.simple-mode .insight-card { display: none; }

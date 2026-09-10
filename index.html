@@ -20,6 +20,7 @@
     <div class="rain"></div>
     <div class="stars"></div>
   </div>
+  <div class="saved-locations" id="saved-locations" hidden aria-label="Saved locations"></div>
 
   <main class="app-shell">
     <header class="topbar">
@@ -37,11 +38,12 @@
     <section class="search-row">
       <form class="search-box" id="search-form">
         <span class="search-icon">⌕</span>
-        <input id="location-input" type="search" placeholder="Search a city..." autocomplete="off" aria-label="Search for a city">
+        <input id="location-input" type="search" placeholder="Search for a city or town..." autocomplete="off" aria-label="Search for a city or town" aria-controls="location-suggestions" aria-expanded="false">
         <button type="submit"><span>Search</span><span class="button-spinner" aria-hidden="true"></span></button>
       </form>
       <button class="location-button" id="locate-button" type="button"><span>⌖</span> Use my location</button>
     </section>
+    <div class="location-suggestions" id="location-suggestions" role="listbox" aria-label="City suggestions" hidden></div>
 
     <div class="quick-searches" aria-label="Popular cities">
       <span>Try:</span>
@@ -57,7 +59,8 @@
         <div class="hero-heading">
           <div>
             <p class="eyebrow" id="date-label">Today</p>
-            <h1 id="city-name">London</h1>
+            <div class="city-title"><h1 id="city-name">London</h1><button class="save-location-button" id="save-location" type="button" aria-label="Save this location" title="Save this location">☆</button></div>
+            <p class="location-detail" id="location-detail">England, United Kingdom</p>
             <p class="condition" id="condition-label">Clear skies</p>
           </div>
           <div class="weather-icon hero-icon" id="hero-icon">☀</div>
@@ -67,7 +70,7 @@
           <div class="feels-like">Feels like <strong id="feels-like">18°</strong><br><span id="high-low">H 21° · L 13°</span></div>
         </div>
         <div class="hero-footer">
-          <span><span class="mini-icon">◒</span> Updated just now</span>
+          <span><span class="mini-icon">◒</span> Local time <strong id="local-time">--</strong></span>
           <span id="sunset-label">Sunset 19:42</span>
         </div>
       </div>
@@ -120,7 +123,7 @@
       </section>
 
       <section class="forecast-card glass-card">
-        <div class="section-heading"><h2>Next 7 days</h2><span class="muted">Daily forecast</span></div>
+        <div class="section-heading"><h2>Next 7 days</h2><span class="muted">Daily forecast · rain chance included</span></div>
         <div class="forecast-list" id="forecast-list"></div>
       </section>
 

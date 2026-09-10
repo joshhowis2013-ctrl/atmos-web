@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Live UK and Ireland surface pressure map for Atmos Web.">
+  <meta name="description" content="Live UK, Ireland, and France surface pressure map for Atmos Web.">
   <meta name="theme-color" content="#172653">
-  <title>UK & Ireland pressure map — Atmos Web</title>
+  <title>UK, Ireland & France pressure map — Atmos Web</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
   <link rel="stylesheet" href="overview.css">
   <link rel="stylesheet" href="pressure.css">
@@ -25,13 +25,13 @@
     <section class="pressure-heading">
       <div>
         <p class="eyebrow">Atmos Web maps</p>
-        <h1>UK & Ireland pressure map</h1>
-        <p>See how surface pressure is distributed across the UK and Ireland. Higher pressure often brings calmer conditions; lower pressure can be linked with unsettled weather.</p>
+        <h1>UK, Ireland & France pressure map</h1>
+        <p>See how surface pressure is distributed across the UK, Ireland, and France. Higher pressure often brings calmer conditions; lower pressure can be linked with unsettled weather.</p>
       </div>
-      <button class="primary-button refresh-button" id="refresh-map" type="button">Refresh map <span>↻</span></button>
+      <div class="map-controls"><label for="pressure-filter">Show</label><select id="pressure-filter"><option value="all">All readings</option><option value="low">Low pressure</option><option value="normal">Normal pressure</option><option value="high">High pressure</option></select><button class="primary-button refresh-button" id="refresh-map" type="button">Refresh map <span>↻</span></button><button class="map-reset" id="reset-map" type="button">Reset view</button></div>
     </section>
     <div class="map-card">
-      <div id="pressure-map" aria-label="Map showing UK surface pressure readings"></div>
+      <div id="pressure-map" aria-label="Map showing UK, Ireland, and France surface pressure readings"></div>
       <div class="map-loading" id="map-loading">Loading pressure readings...</div>
       <div class="map-legend"><strong>Surface pressure</strong><span><i class="low"></i> Low</span><span><i class="normal"></i> Normal</span><span><i class="high"></i> High</span><small>hPa</small></div>
     </div>

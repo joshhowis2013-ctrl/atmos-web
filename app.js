@@ -1,6 +1,6 @@
-const state = { unit: "celsius", simple: false, weather: null, loading: false };
+const state = { unit: "celsius", simple: false, weather: null, loading: false, savedLocations: JSON.parse(localStorage.getItem("atmos-saved-locations") || "[]") };
 const ids = {
-  cityName: "city-name", dateLabel: "date-label", conditionLabel: "condition-label", heroIcon: "hero-icon",
+  cityName: "city-name", locationDetail: "location-detail", localTime: "local-time", dateLabel: "date-label", conditionLabel: "condition-label", heroIcon: "hero-icon",
   temperature: "temperature", feelsLike: "feels-like", highLow: "high-low", sunsetLabel: "sunset-label",
   humidity: "humidity", wind: "wind", visibility: "visibility", pressure: "pressure", forecastList: "forecast-list",
   uvIndex: "uv-index", rainChance: "rain-chance", windDirection: "wind-direction", sunriseLabel: "sunrise-label",
@@ -10,7 +10,7 @@ const ids = {
   simpleWind: "simple-wind", simpleHumidity: "simple-humidity", simpleSunrise: "simple-sunrise", simpleSunset: "simple-sunset",
   warningCard: "warning-card", warningIcon: "warning-icon", warningTitle: "warning-title", warningCopy: "warning-copy",
   hourlyList: "hourly-list", status: "status", locationInput: "location-input", modeLabel: "mode-label", unitToggle: "unit-toggle",
-  searchButton: "search-form", toast: "toast", installButton: "install-button"
+  searchButton: "search-form", toast: "toast", installButton: "install-button", savedLocations: "saved-locations", saveLocation: "save-location", suggestions: "location-suggestions"
 };
 const els = Object.fromEntries(Object.entries(ids).map(([name, id]) => [name, document.getElementById(id)]));
 let deferredInstallPrompt;
@@ -72,17 +72,23 @@ async function loadWarnings(location) {
   try {
     const response = await fetch(`./api/warnings?latitude=${encodeURIComponent(location.latitude)}&longitude=${encodeURIComponent(location.longitude)}`);
     if (response.status === 404) {
+      els.warningCard.classList.add("warning-card--notice");
+      els.warningIcon.textContent = "i";
       els.warningTitle.textContent = "Live warnings need the optional proxy";
       els.warningCopy.textContent = "The static GitHub Pages site cannot run the private Met Office server. Use the official Met Office link for current warnings.";
       return;
     }
     const result = await response.json();
     if (result.status === "not_configured") {
+      els.warningCard.classList.add("warning-card--notice");
+      els.warningIcon.textContent = "i";
       els.warningTitle.textContent = "Met Office feed needs configuring";
       els.warningCopy.textContent = "Add your real warnings endpoint and rotated API key to .env, then restart Atmos Web.";
       return;
     }
     if (result.status === "upstream_error") {
+      els.warningCard.classList.add("warning-card--notice");
+      els.warningIcon.textContent = "!";
       els.warningTitle.textContent = "Met Office warnings unavailable";
       els.warningCopy.textContent = result.error;
       return;
@@ -90,17 +96,57 @@ async function loadWarnings(location) {
     if (!response.ok) return;
     renderWarnings(result, location);
   } catch (error) {
+    els.warningCard.classList.add("warning-card--notice");
+    els.warningIcon.textContent = "!";
     els.warningTitle.textContent = "Met Office warnings unavailable";
     els.warningCopy.textContent = "The warning proxy is not running or cannot be reached.";
   }
 }
 
-async function findLocation(query) {
-  const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=1&language=en&format=json`);
+async function searchLocations(query, count = 5) {
+  const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(query)}&count=${count}&language=en&format=json`);
   if (!response.ok) throw new Error("Could not search for that place.");
   const data = await response.json();
-  if (!data.results?.length) throw new Error("No city found. Try another search.");
-  return data.results[0];
+  return data.results || [];
+}
+
+async function findLocation(query) {
+  const results = await searchLocations(query, 1);
+  if (!results.length) throw new Error("No city found. Try another search.");
+  return results[0];
+}
+
+function locationLabel(location) {
+  return [location.admin1, location.country].filter(Boolean).join(", ") || "Location details unavailable";
+}
+
+function renderSuggestions(results) {
+  els.suggestions.replaceChildren();
+  if (!results.length) {
+    els.suggestions.hidden = true;
+    els.locationInput.setAttribute("aria-expanded", "false");
+    return;
+  }
+  results.forEach((location, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.role = "option";
+    button.className = "location-suggestion";
+    button.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    const name = document.createElement("strong");
+    name.textContent = location.name;
+    const detail = document.createElement("span");
+    detail.textContent = [location.admin1, location.country].filter(Boolean).join(", ");
+    button.append(name, detail);
+    button.addEventListener("click", () => {
+      els.locationInput.value = location.name;
+      renderSuggestions([]);
+      loadLocation(location);
+    });
+    els.suggestions.append(button);
+  });
+  els.suggestions.hidden = false;
+  els.locationInput.setAttribute("aria-expanded", "true");
 }
 
 async function fetchWeather(location) {
@@ -118,6 +164,11 @@ function render({ location, data }) {
   const current = data.current;
   const [condition, icon] = getWeatherInfo(current.weather_code);
   state.weather = { location, data };
+  els.locationDetail.textContent = locationLabel(location);
+  els.localTime.textContent = formatTime(data.current.time);
+  renderSavedLocations();
+  els.saveLocation.textContent = state.savedLocations.some(saved => saved.name === location.name && saved.latitude === location.latitude) ? "★" : "☆";
+  els.saveLocation.setAttribute("aria-label", els.saveLocation.textContent === "★" ? "Remove saved location" : "Save this location");
   renderMetOfficeCheck(location);
   document.body.classList.toggle("night", !current.is_day);
   document.body.dataset.weather = condition.toLowerCase();
@@ -160,7 +211,8 @@ function render({ location, data }) {
   els.uvCopy.textContent = uvLabel(uvIndex);
   els.forecastList.innerHTML = data.daily.time.slice(0, 7).map((day, index) => {
     const [label, dayIcon] = getWeatherInfo(data.daily.weather_code[index]);
-    return `<div class="forecast-day"><span>${index === 0 ? "Today" : formatDay(day)}</span><span class="weather-icon" title="${label}">${dayIcon}</span><strong>${formatTemp(convertTemp(data.daily.temperature_2m_max[index]))}</strong><span class="range">↓ ${formatTemp(convertTemp(data.daily.temperature_2m_min[index]))}</span></div>`;
+    const rain = data.daily.precipitation_probability_max[index] ?? 0;
+    return `<div class="forecast-day"><span>${index === 0 ? "Today" : formatDay(day)}</span><span class="weather-icon" title="${label}" aria-label="${label}">${dayIcon}</span><strong>${formatTemp(convertTemp(data.daily.temperature_2m_max[index]))}</strong><span class="range">↓ ${formatTemp(convertTemp(data.daily.temperature_2m_min[index]))}</span><small class="forecast-rain">☂ ${rain}%</small></div>`;
   }).join("");
   const now = new Date();
   const nextHours = data.hourly.time.map((time, index) => ({ time, index })).filter(item => new Date(item.time) >= now).slice(0, 10);
@@ -169,6 +221,36 @@ function render({ location, data }) {
     return `<div class="hour"><span>${position === 0 ? "Now" : formatTime(time)}</span><span class="weather-icon">${hourIcon}</span><strong>${formatTemp(convertTemp(data.hourly.temperature_2m[index]))}</strong></div>`;
   }).join("");
   els.status.textContent = `Showing weather for ${location.name}${location.country ? `, ${location.country}` : ""}`;
+}
+
+function renderSavedLocations() {
+  if (!state.savedLocations.length) {
+    els.savedLocations.hidden = true;
+    els.savedLocations.replaceChildren();
+    return;
+  }
+  els.savedLocations.hidden = false;
+  els.savedLocations.innerHTML = `<span>Saved:</span>${state.savedLocations.map((location, index) => `<button type="button" data-saved-index="${index}">${location.name}</button>`).join("")}`;
+  els.savedLocations.querySelectorAll("[data-saved-index]").forEach(button => button.addEventListener("click", async () => {
+    await loadLocation(state.savedLocations[Number(button.dataset.savedIndex)]);
+  }));
+}
+
+function toggleSavedLocation() {
+  if (!state.weather) return;
+  const { location } = state.weather;
+  const existing = state.savedLocations.findIndex(saved => saved.name === location.name && saved.latitude === location.latitude);
+  if (existing >= 0) {
+    state.savedLocations.splice(existing, 1);
+    showToast(`${location.name} removed from saved locations.`);
+  } else {
+    state.savedLocations.unshift({ name: location.name, country: location.country, country_code: location.country_code, latitude: location.latitude, longitude: location.longitude });
+    state.savedLocations = state.savedLocations.slice(0, 6);
+    showToast(`${location.name} saved.`);
+  }
+  localStorage.setItem("atmos-saved-locations", JSON.stringify(state.savedLocations));
+  renderSavedLocations();
+  render(state.weather);
 }
 
 function setLoading(loading, message = "") {
@@ -210,6 +292,28 @@ document.getElementById("search-form").addEventListener("submit", async event =>
   try { await loadLocation(await findLocation(els.locationInput.value.trim())); }
   catch (error) { els.status.textContent = error.message; showToast(error.message); }
 });
+let suggestionTimer;
+els.locationInput.addEventListener("input", () => {
+  window.clearTimeout(suggestionTimer);
+  const query = els.locationInput.value.trim();
+  if (query.length < 2) {
+    renderSuggestions([]);
+    return;
+  }
+  suggestionTimer = window.setTimeout(async () => {
+    try {
+      renderSuggestions(await searchLocations(query));
+    } catch {
+      renderSuggestions([]);
+    }
+  }, 250);
+});
+els.locationInput.addEventListener("keydown", event => {
+  if (event.key === "Escape") renderSuggestions([]);
+});
+document.addEventListener("click", event => {
+  if (!event.target.closest(".search-box") && !event.target.closest(".location-suggestions")) renderSuggestions([]);
+});
 document.getElementById("locate-button").addEventListener("click", () => {
   if (!navigator.geolocation) { els.status.textContent = "Location is not supported by this browser."; showToast("Location is not supported by this browser."); return; }
   setLoading(true, "Requesting your location...");
@@ -242,6 +346,7 @@ document.querySelectorAll("[data-city]").forEach(button => {
       showToast(error.message);
     }
   });
+  els.saveLocation.addEventListener("click", toggleSavedLocation);
 });
 
 window.addEventListener("beforeinstallprompt", event => {
