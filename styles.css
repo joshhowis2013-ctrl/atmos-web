@@ -156,7 +156,14 @@ h2 { margin-bottom: 0; font: 600 20px "Space Grotesk", sans-serif; letter-spacin
 .weather-scene.wet .sun { opacity: .35; }
 body[data-weather*="snow"] .weather-scene::before { background: radial-gradient(circle, rgba(255,255,255,.8) 0 2px, transparent 3px); background-size: 65px 65px; animation: snow-fall 7s linear infinite; }
 body[data-weather*="thunder"] .weather-scene { animation: storm-flash 8s infinite; }
-footer { margin-top: 25px; color: rgba(220,230,255,.58); font-size: 12px; }
+.app-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 25px; padding: 20px 0 5px; color: rgba(220,230,255,.68); font-size: 12px; }
+.app-footer > div { display: grid; gap: 5px; }
+.app-footer strong { color: var(--ink); font: 600 15px "Space Grotesk", sans-serif; }
+.app-footer nav { display: flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.app-footer a, .app-footer button { border: 1px solid rgba(142,216,255,.2); border-radius: 9px; padding: 8px 10px; color: var(--muted); background: transparent; font-size: 12px; text-decoration: none; }
+.app-footer a:hover, .app-footer a:focus-visible, .app-footer button:hover, .app-footer button:focus-visible { border-color: var(--accent); color: var(--ink); background: rgba(142,216,255,.1); }
+/* Ignore stale injected footer markup if an older cached page still contains it. */
+.wf-main-footer { display: none !important; }
 button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid rgba(142,216,255,.75); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 body.simple-mode .details-grid, body.simple-mode .hourly-card, body.simple-mode .forecast-card, body.simple-mode .insight-card { display: none; }
@@ -179,13 +186,23 @@ body.night .stars { opacity: .65; animation: twinkle 4s ease-in-out infinite alt
 @keyframes warning-pulse { 50% { box-shadow: 0 0 0 6px rgba(255,211,110,.04), 0 0 22px rgba(255,211,110,.2); } }
 @media (max-width: 760px) {
   .app-shell { width: min(100% - 24px, 580px); padding-top: 18px; }
+  .topbar { align-items: flex-start; flex-direction: column; gap: 16px; }
+  .top-actions { width: 100%; align-items: center; flex-wrap: wrap; }
+  .top-actions .overview-link { padding: 6px 0; }
+  .top-actions .mode-toggle { margin-left: auto; }
   .search-row { align-items: stretch; flex-direction: column; margin-top: 38px; }
+  .search-box { min-height: 54px; }
+  .search-box button { padding: 11px 15px; }
   .location-button { width: 100%; }
-  .top-actions { gap: 6px; }
   .install-button { padding: 9px 10px; }
   .quick-searches { flex-wrap: wrap; }
   .dashboard { display: block; }
-  .hero-card { margin-bottom: 18px; padding: 25px; }
+  .hero-card { margin-bottom: 18px; padding: 22px 18px; }
+  .hero-heading { align-items: flex-start; }
+  .hero-icon { margin-right: 0; font-size: 66px; }
+  .temperature-row { gap: 14px; margin: 38px 0 34px; }
+  .temperature { font-size: clamp(68px, 22vw, 100px); }
+  .feels-like { font-size: 13px; }
   .details-grid { margin-bottom: 18px; }
   .forecast-card, .hourly-card { margin-bottom: 18px; padding: 18px 14px; }
   .insight-card { margin-bottom: 18px; padding: 18px 14px; }
@@ -197,5 +214,36 @@ body.night .stars { opacity: .65; animation: twinkle 4s ease-in-out infinite alt
   .warning-link { margin-left: 58px; }
   .forecast-list { gap: 2px; }
   .forecast-day { padding: 11px 2px; font-size: 12px; }
-  footer { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .forecast-day .weather-icon { font-size: 21px; }
+  .forecast-rain { font-size: 10px; }
+  .app-footer { padding-top: 18px; }
+  .app-footer { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .app-footer nav { justify-content: flex-start; }
+}
+@media (max-width: 480px) {
+  .app-shell { width: min(100% - 20px, 420px); }
+  .top-actions { gap: 5px; }
+  .top-actions .overview-link { font-size: 12px; }
+  .top-actions .mode-toggle { margin-left: 0; }
+  .icon-button, .mode-toggle, .location-button, .install-button { padding: 9px 10px; }
+  .search-row { margin-top: 28px; }
+  .search-box { gap: 7px; padding-left: 12px; }
+  .search-box input { min-width: 0; font-size: 15px; }
+  .search-box button { padding: 10px 12px; }
+  .hero-heading { gap: 8px; }
+  .hero-icon { font-size: 54px; }
+  .temperature-row { align-items: flex-end; }
+  .temperature { font-size: 72px; }
+  .feels-like { line-height: 1.5; }
+  .hero-footer { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .simple-stats { gap: 7px; }
+  .simple-stats > div { padding: 10px 8px; }
+  .simple-stats strong { font-size: 14px; }
+  .details-grid { gap: 10px; }
+  .metric-card { min-height: 94px; padding: 14px 12px; }
+  .metric-icon { width: 34px; height: 34px; flex: 0 0 34px; font-size: 17px; }
+  .section-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .forecast-list { grid-template-columns: repeat(7, minmax(45px, 1fr)); overflow-x: auto; padding-bottom: 4px; }
+  .forecast-day { min-width: 45px; }
+  .warning-link { margin-left: 0; }
 }

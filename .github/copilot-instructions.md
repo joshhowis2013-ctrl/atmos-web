@@ -69,6 +69,7 @@ The proxy supports the configured authentication header through `MET_OFFICE_AUTH
 - Preserve the relative `./` paths used by the manifest and service worker so the app works when hosted from a subpath.
 - Keep API responses and user-visible errors explicit. Do not silently treat failed warning requests as active or clear warnings.
 - Use the existing visual language: CSS custom properties, `.glass-card`, rounded cards, muted secondary text, and the existing animation/keyframe style. Keep Simple mode compact rather than copying the detailed dashboard into it.
+- Preserve the responsive mobile layouts in `styles.css` and `overview.css`: controls should wrap rather than overflow, dashboard cards should remain readable below 760px and 480px, and wide forecast content may scroll horizontally when necessary.
 - Escape or safely assign external API text through `textContent`; avoid inserting untrusted warning content into `innerHTML`.
 
 ## PWA considerations
