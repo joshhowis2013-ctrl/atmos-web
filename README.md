@@ -85,6 +85,12 @@ GitHub Pages publishes a separate static example build through `.github/workflow
 
 The public example keeps Open-Meteo forecasts, the pressure map, PWA installation, and the official Met Office warning fallback. Live Met Office warnings are intentionally unavailable because GitHub Pages cannot run the private `/api/warnings` server proxy. The local `npm start` application remains unchanged and can use the configured warning API.
 
+## Automated testing and code review
+
+`.github/workflows/quality.yml` runs on pushes and pull requests targeting `main`. It installs dependencies with `npm ci`, checks JavaScript syntax, validates the web manifest, checks formatting, builds the browser-only static example, and confirms that `.env` and `server.js` are not part of the public artifact. A separate CodeQL job reviews the JavaScript for security issues.
+
+Pull requests should pass the **Test and review** workflow before being merged.
+
 ### One-command setup
 
 On Ubuntu/Linux, `setup.sh` installs the npm dependencies and creates `.env` from `.env.example` without overwriting an existing `.env`:

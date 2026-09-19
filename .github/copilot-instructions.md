@@ -10,6 +10,7 @@ Atmos Web is a dependency-light vanilla JavaScript weather PWA:
 - `server.js` serves the static app and exposes `/api/warnings`. It is the only place that may read the Met Office credential from environment variables.
 - `manifest.webmanifest`, `sw.js`, and `icon.svg` provide installable PWA metadata, app-shell caching, and branding.
 - `.github/workflows/deploy-pages.yml` builds a separate browser-only `_site` artifact for GitHub Pages; keep server files, `.env`, and credentials out of that artifact.
+- `.github/workflows/quality.yml` runs JavaScript syntax checks, manifest validation, static example checks, and CodeQL analysis on pushes and pull requests.
 - `pressure.html`, `pressure.css`, and `pressure.js` provide the standalone UK, Ireland, and France pressure map using Leaflet and Open-Meteo. It includes live points for Ireland, including Waterford, and France, including Paris, Bordeaux, Lyon, and Marseille.
 
 The normal production-shaped local entry point is `http://localhost:3000` through `server.js`. A Python static server is useful for frontend-only work, but it cannot provide `/api/warnings`. GitHub Pages uses the workflow-generated static example and intentionally relies on the official warning fallback.
