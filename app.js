@@ -11,6 +11,7 @@ const ids = {
   warningCard: "warning-card", warningIcon: "warning-icon", warningTitle: "warning-title", warningCopy: "warning-copy",
   hourlyList: "hourly-list", status: "status", locationInput: "location-input", modeLabel: "mode-label", unitToggle: "unit-toggle",
   searchButton: "search-form", toast: "toast", installButton: "install-button", savedLocations: "saved-locations", saveLocation: "save-location", suggestions: "location-suggestions"
+  , refreshWeather: "refresh-weather", backToTop: "back-to-top"
 };
 const els = Object.fromEntries(Object.entries(ids).map(([name, id]) => [name, document.getElementById(id)]));
 let deferredInstallPrompt;
@@ -362,6 +363,15 @@ els.installButton.addEventListener("click", async () => {
   deferredInstallPrompt = null;
   els.installButton.hidden = true;
 });
+
+document.getElementById("refresh-weather").addEventListener("click", () => {
+  if (state.weather) {
+    loadLocation(state.weather.location);
+    return;
+  }
+  loadLocation({ name: "London", latitude: 51.5074, longitude: -0.1278 });
+});
+document.getElementById("back-to-top").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
 window.addEventListener("appinstalled", () => {
   els.installButton.hidden = true;

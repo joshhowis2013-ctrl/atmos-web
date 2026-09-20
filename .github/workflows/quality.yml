@@ -1,0 +1,76 @@
+name: Test and review
+
+on:
+  push:
+    branches: ["main", "feature/**"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  test:
+    name: Test and build static example
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -path './node_modules' -prune -o -name '*.js' -type f -print0 |
+            xargs -0 -r -n1 node --check
+
+      - name: Validate manifest
+        run: python3 -m json.tool manifest.webmanifest >/dev/null
+
+      - name: Check formatting and public files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          test ! -e .env
+          test ! -e _site/.env
+          test ! -e _site/server.js
+
+      - name: Build static example
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          mkdir -p _site/docs
+          cp index.html overview.html pressure.html configure.html _site/
+          cp app.js styles.css overview.css pressure.js pressure.css _site/
+          cp manifest.webmanifest sw.js icon.svg _site/
+          cp docs/*.html _site/docs/
+          test ! -e _site/server.js
+          test ! -e _site/.env
+
+  codeql:
+    name: CodeQL review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Analyze with CodeQL
+        uses: github/codeql-action/analyze@v3

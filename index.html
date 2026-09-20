@@ -133,10 +133,168 @@
       </section>
     </section>
 
-    <footer><span>Atmos Web · Web only</span><span>Data by Open-Meteo · No API key required</span></footer>
+    <footer class="app-footer">
+      <div>
+        <strong>Atmos Web</strong>
+        <span>Weather data by Open-Meteo · No API key required</span>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="overview.html">Overview</a>
+        <a href="configure.html">Documentation</a>
+        <a href="pressure.html">Pressure map</a>
+        <button id="refresh-weather" type="button">Refresh weather</button>
+        <button id="back-to-top" type="button">Back to top</button>
+      </nav>
+    </footer>
   </main>
 
   <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
   <script src="app.js"></script>
+   <!-- NEW BULLETPROOF SITE FOOTER -->
+<footer class="wf-main-footer" style="background-color: #040710; position: relative; padding: 90px 40px 40px 40px; border-top: 1px solid rgba(59, 130, 246, 0.15); font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: block; clear: both; overflow: hidden;">
+
+    <!-- Ambient glowing tech accent behind the branding info -->
+    <div style="position: absolute; top: -150px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(17, 155, 190, 0.07) 0%, rgba(0,0,0,0) 70%); pointer-events: none;"></div>
+
+    <style>
+        /* Widen layout container up to 1400px maximum constraint */
+        .wf-footer-layout {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Specialized narrow dimensions for the brand profile column */
+        .wf-footer-info {
+            flex: 1.5 1 280px;
+            margin-bottom: 40px;
+            padding-right: 40px;
+            box-sizing: border-box;
+        }
+
+        /* Sleek modular structural allocation blocks */
+        .wf-footer-column {
+            flex: 1 1 180px;
+            margin-bottom: 40px;
+            box-sizing: border-box;
+        }
+
+        /* Premium tech headers */
+        .wf-main-footer h4 {
+            color: #00eeff !important;
+            font-size: 13px !important;
+            font-weight: 600 !important;
+            margin: 0 0 24px 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1.5px !important;
+            opacity: 0.9;
+        }
+
+        /* Clean links with high-contrast neutral typography */
+        .wf-footer-column a {
+            display: block !important;
+            color: #94a3b8 !important; /* Soft legible aluminum gray */
+            text-decoration: none !important;
+            font-size: 14px !important;
+            margin-bottom: 16px !important;
+            padding: 0 !important;
+            transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            font-weight: 400 !important;
+        }
+
+        /* Vibrant, glow-style hover animation tracking */
+        .wf-footer-column a:hover {
+            color: #127d9b !important; /* Pops with Whister's signature electric blue */
+            transform: translateX(4px) !important; /* Elegant subtle micro-slide interaction */
+            text-decoration: none !important;
+        }
+
+        .wf-footer-copyright {
+            max-width: 1400px;
+            margin: 40px auto 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .wf-footer-copyright p {
+            color: #475569 !important;
+            font-size: 13px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            letter-spacing: 0.3px;
+        }
+
+        /* Internet Explorer Layout Fallbacks */
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            .wf-footer-layout { display: block !important; }
+            .wf-footer-info { width: 28% !important; float: left !important; }
+            .wf-footer-column { width: 17% !important; float: left !important; }
+            .wf-footer-layout::after, .wf-main-footer::after { content: "" !important; display: table !important; clear: both !important; }
+            .wf-footer-column a { color: #3b82f6 !important; }
+        }
+    </style>
+
+    <div class="wf-footer-layout">
+        <!-- Column 1: Brand Info Box -->
+        <div class="wf-footer-info">
+            <div class="logo" style="color: #00ddff; margin-bottom: 24px;">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" style="display: block;">
+                    <path d="M2.5 3h3.8l3.7 12.2L13.7 3h3.6l3.7 12.2 3.7-12.2h3.8L21 21h-4l-3.7-12.2L9.6 21H5.6L2.5 3z"/>
+                </svg>
+            </div>
+            <p class="brand-text" style="color: #64748b; font-size: 14px; line-height: 1.7; margin: 0; padding: 0; font-weight: 400;">
+                Your weather but local is here
+            </p>
+        </div>
+
+        <!-- Column 2: Product link directory -->
+        <div class="wf-footer-column">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#all-platforms">Download</a>
+            <a href="#">Security</a>
+        </div>
+
+        <!-- Column 3: Navigation list paths -->
+        <div class="wf-footer-column">
+            <h4>Navigation</h4>
+            <a href="#bangs-dashboard">Bangs Index</a>
+            <a href="#stats">Live Metrics</a>
+            <a href="#beta-info">Stable Builds</a>
+        </div>
+
+        <!-- Column 4: Documentation details -->
+        <div class="wf-footer-column">
+            <h4>Resources</h4>
+            <a href="#">Developer API</a>
+            <a href="#">Release Notes</a>
+            <a href="#">Open Source</a>
+        </div>
+
+        <!-- Column 5: Corporate data protection nodes -->
+        <div class="wf-footer-column">
+            <h4>Company</h4>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Support</a>
+        </div>
+    </div>
+
+    <div class="wf-footer-copyright">
+        <p>&copy; 2026 Whister Software. All rights reserved.</p>
+        <p style="color: #94a3b8; font-size: 12px; letter-spacing: 0.5px;">Crafted with care by the Whister Team</p>
+        <p style="color: #00fff2 !important; font-weight: 500; font-size: 12px !important; letter-spacing: 1px; text-transform: uppercase;">Whister Ai Buddy <span>&#169;</span></p>
+    </div>
+</footer>
 </body>
 </html>

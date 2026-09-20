@@ -1,4 +1,4 @@
-const CACHE_NAME = "atmos-web-v11";
+const CACHE_NAME = "atmos-web-v13";
 const APP_SHELL = ["./", "./index.html", "./overview.html", "./configure.html", "./docs/getting-started.html", "./docs/configuration.html", "./docs/deployment.html", "./docs/updating.html", "./docs/troubleshooting.html", "./pressure.html", "./styles.css", "./overview.css", "./pressure.css", "./app.js", "./pressure.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", event => {
