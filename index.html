@@ -133,6 +133,61 @@
       </section>
     </section>
 
+    <section class="atmos-newsletter glass-card" id="newsletter" aria-labelledby="atmos-newsletter-title">
+      <div class="atmos-newsletter-copy">
+        <span class="summary-kicker">Atmos updates</span>
+        <h2 id="atmos-newsletter-title">Weather notes for your inbox</h2>
+        <p>Get occasional Atmos product news and updates. Unsubscribe whenever you like.</p>
+      </div>
+
+      <div id="mlb2-46388045" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-46388045">
+        <div class="ml-form-align-center">
+          <div class="ml-form-embedWrapper embedForm">
+            <div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
+              <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/2662758/forms/199683029547878222/subscribe" data-code="" method="post" target="_blank">
+                <div class="ml-form-formContent">
+                  <div class="ml-form-fieldRow ml-last-item">
+                    <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                      <label class="atmos-newsletter-sr-only" for="atmos-newsletter-email">Email address</label>
+                      <input id="atmos-newsletter-email" aria-label="Email address" aria-required="true" type="email" class="form-control" name="fields[email]" placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ml-form-checkboxRow ml-validate-required">
+                  <label class="checkbox atmos-newsletter-consent">
+                    <input type="checkbox" required>
+                    <span class="label-description"><span>I agree to receive email updates from Atmos.</span></span>
+                  </label>
+                </div>
+
+                <div class="ml-form-recaptcha ml-validate-required">
+                  <script src="https://www.google.com/recaptcha/api.js"></script>
+                  <div class="g-recaptcha" data-sitekey="6Lf1KHQUAAAAAFNKEX1hdSWCS3mRMv4FlFaNslaD"></div>
+                </div>
+
+                <input type="hidden" name="ml-submit" value="1">
+                <input type="hidden" name="anticsrf" value="true">
+                <div class="ml-form-embedSubmit">
+                  <button type="submit">Join newsletter</button>
+                  <button disabled="disabled" style="display: none;" type="button" class="loading">
+                    <span class="atmos-newsletter-sr-only">Loading...</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="ml-form-successBody row-success" style="display: none;">
+              <div class="ml-form-successContent">
+                <h4>You're on the list!</h4>
+                <p>Thanks for signing up. Watch your inbox for Atmos updates.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <footer class="app-footer">
       <div>
         <strong>Atmos Web</strong>
@@ -150,6 +205,17 @@
 
   <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
   <script src="app.js"></script>
+  <script>
+    function ml_webform_success_46388045() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-46388045 .row-success').show();
+      $('.ml-subscribe-form-46388045 .row-form').hide();
+    }
+  </script>
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v83147fa8ce2d95cb73ece7f28b469519" type="text/javascript"></script>
+  <script>
+    fetch('https://assets.mailerlite.com/jsonp/2662758/forms/199683029547878222/takel');
+  </script>
    <!-- NEW BULLETPROOF SITE FOOTER -->
 <footer class="wf-main-footer" style="background-color: #040710; position: relative; padding: 90px 40px 40px 40px; border-top: 1px solid rgba(59, 130, 246, 0.15); font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: block; clear: both; overflow: hidden;">
 
