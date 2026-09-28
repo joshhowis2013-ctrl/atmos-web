@@ -258,4 +258,4 @@ If frontend changes do not appear, refresh the browser or wait for the service w
 
 ## Security
 
-API credentials belong in local environment variables or your deployment platform's secret manager. Rotate a credential immediately if it is accidentally shared or committed...
+API credentials belong in local environment variables or your deployment platform's secret manager. Rotate a credential immediately if it is accidentally shared or committed.
