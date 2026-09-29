@@ -218,6 +218,7 @@ body.night .stars { opacity: .65; animation: twinkle 4s ease-in-out infinite alt
   .forecast-rain { font-size: 10px; }
   .app-footer { padding-top: 18px; }
   .app-footer { align-items: flex-start; flex-direction: column; gap: 14px; }
+  .atmos-newsletter { grid-template-columns: 1fr; gap: 20px; padding: 19px; }
   .app-footer nav { justify-content: flex-start; }
 }
 @media (max-width: 480px) {
