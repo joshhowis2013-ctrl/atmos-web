@@ -381,5 +381,46 @@ window.addEventListener("appinstalled", () => {
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
 }
+// 1. Audio Soundscape State Controller
+let ambientAudio = null;
+function toggleAudio(btn) {
+  if (!ambientAudio) {
+    // High-quality, loopable environmental weather asset
+    ambientAudio = new Audio('https://mixkit.co'); 
+    ambientAudio.loop = true;
+  }
+  
+  if (ambientAudio.paused) {
+    ambientAudio.play().catch(err => console.log("Audio activation deferred: ", err));
+    btn.innerHTML = "🎵 Soundscapes: On";
+    btn.classList.add('active');
+  } else {
+    ambientAudio.pause();
+    btn.innerHTML = "🎵 Soundscapes: Off";
+    btn.classList.remove('active');
+  }
+}
+
+// 2. Mock API Integration hook to scale dynamically inside your Open-Meteo fetch response
+function updateDashboardMetrics(deg, windMph, currentTemp) {
+  // Rotate Anemometer Pointer
+  const pointer = document.getElementById('windPointer');
+  if(pointer) pointer.style.transform = `rotate(${deg}deg)`;
+  
+  // Smart-Dress Logic Controller
+  const textNode = document.getElementById('advisorText');
+  const tagsNode = document.getElementById('advisorTags');
+  
+  if(currentTemp < 10) {
+    textNode.innerText = "Bracing conditions outside. Heavy insulation required.";
+    tagsNode.innerHTML = `<span class="item-tag">🧥 Heavy Coat</span><span class="item-tag">🧣 Scarf</span><span class="item-tag">🧤 Gloves</span>`;
+  } else if(currentTemp >= 10 && currentTemp < 20) {
+    textNode.innerText = "Mild but crisp weather. Perfect for light outer layers.";
+    tagsNode.innerHTML = `<span class="item-tag">🧥 Light Jacket</span><span class="item-tag">👕 Cotton Base</span><span class="item-tag">👟 Sneakers</span>`;
+  } else {
+    textNode.innerText = "Warm atmosphere observed. Maintain hydration vectors.";
+    tagsNode.innerHTML = `<span class="item-tag">👕 T-Shirt</span><span class="item-tag">🩳 Shorts</span><span class="item-tag">🕶️ Sunglasses</span>`;
+  }
+}
 
 loadLocation({ name: "London", latitude: 51.5074, longitude: -0.1278 });

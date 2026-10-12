@@ -134,22 +134,7 @@
     </section>
    
 
-<!-- Air Quality Index (AQI) Ecosystem -->
-<div class="glass-card aqi-card">
-  <div class="summary-heading">
-    <div>
-      <span class="summary-kicker">Atmospheric Health</span>
-      <h2>Air Quality Index (AQI)</h2>
-    </div>
-    <span class="summary-badge"><i class="status-indicator status-good"></i>32 - Excellent</span>
-  </div>
-  <div class="aqi-breakdown">
-    <div class="aqi-pill"><small>PM2.5</small><strong>4.2 µg/m³</strong></div>
-    <div class="aqi-pill"><small>PM10</small><strong>9.8 µg/m³</strong></div>
-    <div class="aqi-pill"><small>Ozone (O₃)</small><strong>24 ppb</strong></div>
-    <div class="aqi-pill"><small>Nitrogen Dioxide</small><strong>1.1 ppb</strong></div>
-  </div>
-</div>
+
 
 <div class="glass-card metric-card" style="grid-column: 1 / -1; min-height: auto; padding: 20px; display: block;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -157,11 +142,11 @@
       <span class="summary-kicker" style="margin: 0;">Celestial Path</span>
       <h2 style="font-size: 16px; margin: 2px 0 0;">Daylight Horizon</h2>
     </div>
-    <!-- ID Hook for your countdown time calculations -->
+    
     <span style="font-size: 13px; color: var(--accent);" id="countdownRemaining">--h --m Remaining</span>
   </div>
   
-  <!-- Linear track for your relative percentage width manipulation -->
+  
   <div style="position: relative; height: 6px; background: var(--line); border-radius: 10px; margin: 16px 0 8px; overflow: hidden;">
     <div id="daylightProgressBar" style="position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent-strong), #ffd98a); border-radius: inherit; transition: width 0.5s ease;"></div>
   </div>
@@ -171,6 +156,7 @@
     <span id="sunsetTimeNode">... Sunset --:--</span>
   </div>
 </div>
+
 
 
 <div class="glass-card ambient-controls">
