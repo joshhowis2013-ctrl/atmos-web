@@ -401,7 +401,7 @@ function toggleAudio(btn) {
   }
 }
 
-// 2. Mock API Integration hook to scale dynamically inside your Open-Meteo fetch response
+
 function updateDashboardMetrics(deg, windMph, currentTemp) {
   // Rotate Anemometer Pointer
   const pointer = document.getElementById('windPointer');
